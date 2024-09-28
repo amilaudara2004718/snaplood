@@ -30,7 +30,6 @@ def get_thumbnail():
         title = video_data.get('title')
         thumbnail = video_data.get('thumbnail')
 
-        save_to_json(video_data)
 
         return jsonify({
             'thumbnail_url': thumbnail,
@@ -41,28 +40,6 @@ def get_thumbnail():
         return redirect(url_for('index'))
     
 
-
-
-def save_to_json(video_data):
-    json_file_path = 'video_data.json'
-
-    # Check if the JSON file exists
-    if os.path.isfile(json_file_path):
-        # Read existing data
-        with open(json_file_path, 'r') as json_file:
-            try:
-                existing_data = json.load(json_file)
-            except json.JSONDecodeError:
-                existing_data = []
-    else:
-        existing_data = []
-
-    # Append the new video data
-    existing_data.append(video_data)
-
-    # Write the updated data back to the JSON file
-    with open(json_file_path, 'w') as json_file:
-        json.dump(existing_data, json_file, indent=4)  # Use indent for pretty printing
 
 
 if __name__ == '__main__':
