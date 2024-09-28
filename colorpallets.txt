@@ -1,0 +1,6 @@
+red : FF1744
+darkblue: 00224D
+
+seccond red: A0153E
+
+seccondblue and red: 5D0E41

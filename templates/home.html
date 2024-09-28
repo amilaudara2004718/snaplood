@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200..900&display=swap" rel="stylesheet">
+    <title>SnapLood - Free Video Downloader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+    .thumbnail-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative; /* Needed for absolute positioning of download button */
+    }
+
+    #thumbnail {
+        display: none; /* Keep hidden initially */
+        max-width: 500px; /* Ensure it doesn't exceed this width */
+        border-radius: 3%; /* Optional styling */
+        margin-top: 20px; /* Space above */
+    }
+
+    #download-button {
+        position: absolute; /* Positioned relative to the thumbnail container */
+        top: 25px; /* Adjust as needed */
+        right: 25px; /* Adjust as needed */
+        background-color: white; /* Semi-transparent */
+        border-radius: 50%; /* Circular button */
+        padding: 10px; /* Padding */
+        cursor: pointer; /* Pointer cursor */
+        display: flex; /* Flex to center icon */
+        align-items: center; /* Center icon vertically */
+        justify-content: center; /* Center icon horizontally */
+    }
+
+    #download-button i {
+        color: #FF1744; /* Icon color */
+        font-size: 20px; /* Icon size */
+    }
+
+        
+        #loading {
+            display: none; /* Hidden by default */
+            color: #FF1744; /* Color for the loading text */
+            font-size: 18px; /* Font size for loading text */
+            margin-top: 20px; /* Space above the loading text */
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <img class="logo-img" src="/static/images/logo.png" alt="Logo">
+        <div class="animated-text">
+            Download Videos From <span></span>
+        </div>
+    </div>
+
+    <div class="input-wrapper">
+        <form id="thumbnail-form" method="POST" action="/get_thumbnail">
+            <input type="text" name="video_url" placeholder="Enter Video URL" required>
+            <button type="submit">
+                <i class="fa-solid fa-star"></i>
+            </button>
+        </form>
+    </div>
+
+   
+    
+    <p class="our-term">
+        By using our service you accept our 
+        <a href="https://example.com/terms" target="_blank" style="color: #FF1744; text-decoration: underline;">Terms of Service</a> 
+        and 
+        <a href="https://example.com/privacy" target="_blank" style="color: #FF1744; text-decoration: underline;">Privacy Policy</a>.
+    </p>
+
+    <div id="loading" class="loading-spinner" style="display: none;"></div> <!-- Loading spinner -->
+
+    <div class="thumbnail-container" style="position: relative;">
+        <img id="thumbnail" src="" alt="Video Thumbnail">
+        <div id="download-button" style="display: none;">
+            <i class="fa-solid fa-download"></i>
+        </div>
+    </div>
+    
+
+
+    <p id="video-title" style="display: none; margin-top: 10px; max-width: 500px;"></p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+            <li class="{{ category }}" id="error-message" {% if category == 'error' %}class=""{% else %}class="hidden"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <script>
+
+
+
+document.getElementById('thumbnail-form').onsubmit = function(event) {
+    event.preventDefault();
+    const videoUrl = document.querySelector('input[name="video_url"]').value;
+    const thumbnailImg = document.getElementById('thumbnail');
+    const videoTitle = document.getElementById('video-title');
+    const loadingIndicator = document.getElementById('loading');
+    const submitButton = document.querySelector('button');
+
+    // Disable the submit button
+    submitButton.disabled = true;
+
+    // Show loading indicator
+    loadingIndicator.style.display = 'block';
+    thumbnailImg.style.display = 'none';
+    videoTitle.style.display = 'none'; 
+    document.getElementById('download-button').style.display = 'none';
+
+    fetch('/get_thumbnail', {
+        method: 'POST',
+        body: new URLSearchParams(`video_url=${videoUrl}`),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+        submitButton.disabled = false; // Re-enable the submit button
+
+        // Show thumbnail
+        thumbnailImg.src = data.thumbnail_url;
+        thumbnailImg.style.display = 'block';
+
+        // Show video title
+        videoTitle.innerText = data.video_title; // Set the title text
+        videoTitle.style.display = 'block'; // Show the title
+
+        document.getElementById('download-button').style.display = 'flex';
+
+    })
+    .catch(error => {
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+        submitButton.disabled = false; // Re-enable the submit button
+        alert('Error: ' + error);
+    });
+};
+
+document.getElementById('download-button').onclick = function() {
+    const thumbnailImg = document.getElementById('thumbnail');
+    if (thumbnailImg.src) {
+        // Open the thumbnail URL in a new tab
+        window.open(thumbnailImg.src, '_blank');
+    } else {
+        alert('No thumbnail available to open.');
+    }
+};
+
+
+ </script>
+</body>
+</html>

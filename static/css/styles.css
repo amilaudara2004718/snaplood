@@ -1,0 +1,207 @@
+body {
+    background-color: #1e1e1e;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: flex-start; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    min-height: 100vh;
+    padding-top: 20px;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 400px; /* Responsive width */
+}
+
+.logo-img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 0px;
+    display: block;
+}
+
+.animated-text {
+    font-family: "Source Code Pro", monospace;
+    margin-bottom: 20px;
+    font-size: medium;
+    line-height: 1;
+}
+
+.animated-text span {
+    position: relative;
+}
+
+.animated-text span::before {
+    content: "YouTube";
+    color: #FF1744;
+    animation: words 20s infinite;
+}
+
+.animated-text span::after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 8px);
+    height: 100%;
+    background-color: #1e1e1e;
+    border-left: 2px solid #ffffff;
+    right: -8px;
+    animation: cursor 0.8s infinite, typing 20s steps(14) infinite;
+}
+
+@keyframes cursor {
+    to {
+        border-left: 2px solid transparent;
+    }
+}
+
+@keyframes words {
+    0%, 20% { content: "YouTube"; }
+    21%, 40% { content: "Facebook"; }
+    41%, 60% { content: "TikTok"; }
+    61%, 80% { content: "Instagram"; }
+    81%, 100% { content: "1,000+ websites"; }
+}
+
+@keyframes typing {
+    10%, 30%, 50%, 70%, 90% {
+        width: 0;
+    }
+    5%, 25%, 45%, 65%, 85% {
+        width: calc(100% + 8px);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .logo-img {
+        width: 80%;
+    }
+    .animated-text {
+        font-size: small;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-img {
+        width: 80%;
+    }
+    .animated-text {
+        font-size: small;
+    }
+}
+
+.input-wrapper {
+    width: 700px;
+    max-width: 100%;
+    position: relative;
+}
+
+.input-wrapper input {
+    background-color: white;
+    border: 2px solid #FF1744;
+    outline: none; 
+    border-radius: 50px;
+    padding: 1rem 2rem; /* Adjust padding to create space for the button */
+    padding-right: 50px; /* Ensure space on the right for the button */
+    width: 100%;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+.input-wrapper button {
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #FF1744;
+    cursor: pointer;
+    height: 50px; /* Adjust height for better appearance */
+    width: 50px; /* Set fixed width */
+    position: absolute;
+    right: 0px; /* Position the button inside the input field */
+    top: 50%;
+    transform: translateY(-50%); /* Center the button vertically */
+    border: none; /* Remove default border */
+    transition: transform 0.1s ease; /* Animation for button click */
+}
+
+.input-wrapper button:active {
+    transform: translateY(-50%) scale(0.95); /* Scale down on click */
+}
+
+.input-wrapper button i {
+    font-size: 16px; /* Adjust icon size */
+}
+
+
+.our-term{
+    text-align: center;
+    font-size: small;
+    font-family: "Source Code Pro", monospace;
+}
+
+.hidden {
+    display: none; /* Hide the element */
+}
+
+#error-message {
+    color: red;
+    margin: 10px 0; /* Space around the error message */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #FF1744;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+
+/* Larger screens (desktops) */
+@media (min-width: 768px) {
+    #thumbnail {
+        max-width: 700px; /* Increase the max width for desktop view */
+    }
+}
+
+/* Smaller screens (mobile) */
+@media (max-width: 480px) {
+    #thumbnail {
+        max-width: 100%; /* Ensure it fits smaller screens */
+        width: 100%; /* Fill the screen width */
+    }
+}
+
+#video-title{
+    font-size: small;
+    font-family: "Source Code Pro", monospace;
+    margin-top: 10px;
+
+    display: -webkit-box;              /* For WebKit browsers */
+    display: -ms-flexbox;              /* For IE10 */
+    display: flex;                      /* For standard browsers */
+    -webkit-box-orient: vertical;      /* For WebKit browsers */
+    -moz-box-orient: vertical;         /* For Mozilla */
+    box-orient: vertical;               /* For standard browsers */
+    -webkit-line-clamp: 2;             /* For WebKit browsers */
+    line-clamp: 2;                     /* Standard syntax (not widely supported yet) */
+    overflow: hidden;                   /* Hide overflow text */
+    text-overflow: ellipsis;           /* Show ellipsis (...) */
+    max-width: 500px;                  /* Maximum width */
+    color: white;                       /* Set text color */
+    text-align: center;                 /* Center the text */
+    line-height: 1.2;                  /* Adjust line height for better spacing */
+    
+
+}
