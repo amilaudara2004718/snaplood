@@ -1,10 +1,11 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-import os
+import yt_dlp
 import json
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Set a secret key for session management
+app.secret_key = '000718'
+
 
 @app.route('/')
 def index():
@@ -18,15 +19,17 @@ def get_thumbnail():
         flash('Please enter a video URL!', 'error')
         return redirect(url_for('index'))
 
-    command = f'yt-dlp {video_url} -j' 
-    output = os.popen(command).read()
+    ydl_opts = {}
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(video_url, download=False)
 
-    if not output:
+
+    if not json.dumps(ydl.sanitize_info(info)):
             flash(f'Error: {str(e)}', 'error')
             return redirect(url_for('index'))
         
     try:
-        video_data = json.loads(output)
+        video_data = json.loads(json.dumps(ydl.sanitize_info(info)))
         title = video_data.get('title')
         thumbnail = video_data.get('thumbnail')
 
@@ -43,5 +46,5 @@ def get_thumbnail():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
