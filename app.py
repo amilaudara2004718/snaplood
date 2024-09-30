@@ -20,8 +20,10 @@ def get_thumbnail():
         return redirect(url_for('index'))
 
     ydl_opts = {
-        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    }
+        'cookiefile': './www.youtube.com.json',  # Path to the cookie file
+        'extract_flat': True,  # Only extract metadata
+        'skip_download': True,  # Don't download video, just get info
+        }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(video_url, download=False)
 
