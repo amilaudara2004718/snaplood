@@ -19,7 +19,9 @@ def get_thumbnail():
         flash('Please enter a video URL!', 'error')
         return redirect(url_for('index'))
 
-    ydl_opts = {}
+    ydl_opts = {
+        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(video_url, download=False)
 
