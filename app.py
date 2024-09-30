@@ -20,7 +20,7 @@ def get_thumbnail():
         return redirect(url_for('index'))
 
     ydl_opts = {
-        'cookiefile': './www.youtube.com.json',  # Path to the cookie file
+        'cookiefile': './www.youtube.com.txt',  # Path to the cookie file
         'extract_flat': True,  # Only extract metadata
         'skip_download': True,  # Don't download video, just get info
         }
