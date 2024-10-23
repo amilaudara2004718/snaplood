@@ -1,0 +1,60 @@
+[
+    {
+        "url": [
+            {
+                "url":"...",
+                "name": "MP4",
+                "type": "mp4",
+                "ext": "mp4"
+            },
+            {
+                "url":"...",
+                "name": "MP4",
+                "type": "mp4 dash",
+                "ext": "mp4"
+            },
+            {
+                "url":"...",
+                "name": "MP4",
+                "type": "mp4 dash",
+                "ext": "mp4"
+            },
+            {
+                "url":"...",
+                "name": "MP4",
+                "type": "mp4 dash",
+                "ext": "mp4"
+            },
+            {
+                "url":"...",
+                "name": "MP4",
+                "type": "mp4 dash",
+                "ext": "mp4"
+            },
+            {
+                "url":"...",
+                "name": "Audio M4A",
+                "type": "m4a audio",
+                "ext": "m4a"
+            }
+        ],
+        "thumb": "https://i.ytimg.com/vi/g0Oxq-HYYs8/hqdefault.jpg",
+        "sd": null,
+        "meta": {
+            "title": "උතුරු එළි සෙවනේ මානුශීය ධනවාදය",
+            "source": "https://www.youtube.com/watch?v=g0Oxq-HYYs8",
+            "duration": "25:23",
+            "tags": "tech track,techtrack,techtrackshow,sinhala,malinda alahakoon,tech track show,Nordic model,Welfare,Tax,Employment,Nordic countries,Capitalism,Socialism,Welfare state,Market economy,Unemployment,Government spending,Cooperative,Trade union,Unemployment benefits,Workforce,Government budget balance,Norway,Sweden,Deregulation,Foreign direct investment,Denmark,Corporate tax,Distribution of wealth,Consumption tax,Health care,Economic freedom,Shock (economics)"
+        },
+        "video_quality": [
+            "1080",
+            "720",
+            "480",
+            "360",
+            "240",
+            "144"
+        ],
+        "hosting": "101",
+        "hd": null
+    }
+]
