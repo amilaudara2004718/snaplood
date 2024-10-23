@@ -3,6 +3,7 @@
 import { Clipboard, Star } from 'lucide-react';
 import React, { useState } from 'react';
 
+
 function SearchBar({ onJsonResult, onError }) {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,18 +31,9 @@ function SearchBar({ onJsonResult, onError }) {
   
     setLoading(true);
     try {
-      const response = await fetch('/api/extractInfo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: inputValue }),
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Unknown error occurred');
-      }
-  
+      const response = await fetch(`/api/scrape?url=${encodeURIComponent(inputValue)}`);
       const result = await response.json();
+  
       if (result.success) {
         onJsonResult(result.data);
       } else {
@@ -53,6 +45,7 @@ function SearchBar({ onJsonResult, onError }) {
       setLoading(false);
     }
   };
+  
   
   return (
     <div className="relative w-full max-w-xl h-auto">
